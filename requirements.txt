@@ -1,0 +1,9 @@
+gunicorn
+bottle
+requests
+mysqlclient
+beautifulsoup4
+numpy
+matplotlib
+python-dateutil
+pytz

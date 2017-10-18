@@ -1,1 +1,3 @@
-# heroku-monitor
+NS2 monitor on Heroku
+=====================
+
