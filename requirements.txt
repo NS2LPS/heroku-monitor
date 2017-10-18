@@ -1,7 +1,6 @@
-gunicorn
 bottle
 requests
-mysqlclient
+psycopg2
 beautifulsoup4
 numpy
 matplotlib
