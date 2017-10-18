@@ -5,5 +5,5 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title> {{title}} </title>
-    <link rel="stylesheet" href="../static/default.css" type="text/css" />
+    <link rel="stylesheet" href="/css/default.css" type="text/css" />
   </head>
