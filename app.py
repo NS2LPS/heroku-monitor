@@ -51,7 +51,7 @@ class datalogger:
     def logdata(self, timestamp=None, **data):
         timestamp = int(time.time() ) if timestamp is None else int(timestamp)
         data = json.dumps(data)
-        self.query("INSERT INTO {0} () VALUES({1},'{2}');".format(self.name, timestamp, data))
+        self.query("INSERT INTO {0} VALUES({1},'{2}');".format(self.name, timestamp, data))
         self.commit()
     def query_decode(self, query):
         c = self.query(query)
