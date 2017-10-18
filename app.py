@@ -108,7 +108,7 @@ def plotdate(x,y,ylabel=None):
     if ylabel : ax.set_ylabel(ylabel)
     fig.set_figheight(4)
     fig.tight_layout()
-    out = io.StringIO()
+    out = io.BytesIO()
     fig.savefig(out, format='png')
     res = base64.b64encode(out.getvalue())
     out.close()
