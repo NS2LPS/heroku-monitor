@@ -36,6 +36,7 @@ class datalogger:
             password=url.password,
             host=url.hostname,
             port=url.port)
+        self.name = name
         self.query("CREATE TABLE IF NOT EXISTS {0} (time INT, data VARCHAR(512));".format(self.name))
         self.commit()
     def query(self, sql):
