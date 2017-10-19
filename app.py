@@ -128,7 +128,7 @@ def mystr(x, fmt=None):
     return str(x)
 
 # Web server
-@route('/')
+@route('/dilu')
 def main():
     # Get timespan
     try:
@@ -189,7 +189,7 @@ def main():
                     figures = figures,
                     )
 
-@route('/logview')
+@route('/dilu/logview')
 def logview():
     name = 'dilu'
     logger = datalogger(name)
@@ -202,7 +202,7 @@ def logview():
         s += """{date} : {msg}<BR>\n""".format(date=mystr(t,'date'), msg=str(data) )
     return s
 
-@route('/log', method='POST')
+@route('/dilu/log', method='POST')
 def log():
     name = 'dilu'
     logger = datalogger(name)
@@ -211,7 +211,7 @@ def log():
     logger.close()
     return 'OK\n'
 
-@route('/reset')
+@route('/dilu/reset')
 def reset():
     name = 'dilu'
     logger = datalogger(name)
