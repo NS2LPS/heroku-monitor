@@ -109,7 +109,7 @@ def plotdate(x,y,ylabel=None):
     fig.set_figheight(4)
     fig.tight_layout()
     out = io.BytesIO()
-    fig.savefig(out, format='png')
+    fig.savefig(out, format='png', dpi=400)
     res = base64.b64encode(out.getvalue())
     out.close()
     return res
