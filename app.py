@@ -138,14 +138,14 @@ def main():
     if elapsed <= 1:
         title = 'Last update less than one min ago'
     elif elapsed < 60:
-        title = 'Last update {0} min ago'.format(elapsed)
+        title = 'Last update {0} min ago'.format(int(elapsed))
     elif elapsed < 1440 :
-        h = elapsed/60
-        m = elapsed%60
+        h = int(elapsed/60)
+        m = int(elapsed%60)
         if m:
             title = 'Last update {0} h {1} min ago'.format(h, m)
         else:
-            title = 'Last update {0} h ago'.format(h, m)
+            title = 'Last update {0} h ago'.format(h)
     else:
         title = 'Last update more than one day ago'
     figures=['figure.png']
