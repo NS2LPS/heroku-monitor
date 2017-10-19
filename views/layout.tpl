@@ -8,9 +8,9 @@
               % end
             </p>
             <p>
-             <a href="/?timespan=43200">Last 12 hours</a> |
-             <a href="/?timespan=10800">Last 3 hours</a> |
-             <a href="/?timespan=3600">Last hour</a> <br>
+             <a href="/dilu?timespan=43200">Last 12 hours</a> |
+             <a href="/dilu?timespan=10800">Last 3 hours</a> |
+             <a href="/dilu?timespan=3600">Last hour</a> <br>
              % for f in figures :
              <img src="data:image/png;base64,{{f}}" alt="Temperature" width=90%><br>
              % end
