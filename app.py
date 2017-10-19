@@ -127,7 +127,43 @@ def mystr(x, fmt=None):
     if fmt=='temp' : return '{0:.2f} {1}'.format( *((x,'K') if x>1 else (x*1000,'mK')) )
     return str(x)
 
-# Web server
+
+#####################
+# Figure monitoring
+#####################
+@route('/fig')
+def main():
+    lastupdate = os.path.getmtime('./static/figure.png')
+    elapsed = int(time.time()-lastupdate)/60
+    if elapsed <= 1:
+        title = 'Last update less than one min ago'
+    elif elapsed < 60:
+        title = 'Last update {0} min ago'.format(elapsed)
+    elif elapsed < 1440 :
+        h = elapsed/60
+        m = elapsed%60
+        if m:
+            title = 'Last update {0} h {1} min ago'.format(h, m)
+        else:
+            title = 'Last update {0} h ago'.format(h, m)
+    else:
+        title = 'Last update more than one day ago'
+    figures=['figure.png']
+    return template('layout_fig',
+                    title = title,
+                    figures = figures,
+                    )
+
+@route('/fig/upload', method='POST')
+def upload():
+    upload = request.files.get('figure')
+    upload.save('./static/figure.png', overwrite=True)
+    return 'OK\n'
+
+
+#####################
+# Dilu monitoring
+#####################
 @route('/dilu')
 def main():
     # Get timespan
@@ -183,7 +219,7 @@ def main():
                     ('MC Cernox', mystr(T_MCCernox,'temp'),  mystr(t_MCCernox,'time') ),
                     ('Still Cernox', mystr(T_Still,'temp'),  mystr(t_Still,'time') )]
     # Fill template
-    return template('layout',
+    return template('layout_dilu',
                     title = 'T = '+ mystr(lastval,'temp'),
                     temperatures = temperatures,
                     figures = figures,
@@ -219,8 +255,8 @@ def reset():
     logger.close()
     return 'OK\n'
 
-@route('/css/<filename>')
-def send_css(filename):
+@route('/static/<filename>')
+def server_static(filename):
     return static_file(filename, root='static')
 
 run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
