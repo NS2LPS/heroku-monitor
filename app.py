@@ -242,7 +242,7 @@ def logview():
 def log():
     name = 'dilu'
     logger = datalogger(name)
-    logger.delete_timespan(86400)
+    logger.delete_timespan(43200)
     logger.logdata(**request.forms)
     logger.close()
     return 'OK\n'
