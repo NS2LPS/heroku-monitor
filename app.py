@@ -131,9 +131,9 @@ def mystr(x, fmt=None):
 #####################
 # Figure monitoring
 #####################
-@route('/fig')
-def main():
-    lastupdate = os.path.getmtime('./static/figure.png')
+@route('/<figname>/view')
+def main(figname):
+    lastupdate = os.path.getmtime(f'./static/{figname}.png')
     elapsed = int(time.time()-lastupdate)/60
     if elapsed <= 1:
         title = 'Last update less than one min ago'
@@ -148,24 +148,24 @@ def main():
             title = 'Last update {0} h ago'.format(h)
     else:
         title = 'Last update more than one day ago'
-    figures=['figure.png']
+    figures=[f'{figname}.png']
     return template('layout_fig',
                     title = title,
                     figures = figures,
                     )
 
-@route('/fig/upload', method='POST')
-def upload():
+@route('/<figname>/upload', method='POST')
+def upload(figname):
     upload = request.files.get('figure')
-    upload.save('./static/figure.png', overwrite=True)
+    upload.save(f'./static/{figname}.png', overwrite=True)
     return 'OK\n'
 
 
 #####################
 # Dilu monitoring
 #####################
-@route('/dilu')
-def main():
+@route('/<name>')
+def main(name):
     # Get timespan
     try:
         timespan = int(request.query.timespan)
@@ -173,7 +173,7 @@ def main():
         timespan = request.get_cookie('timespan', secret='mlkjdfgmm223!!g') or 43200
     response.set_cookie('timespan', timespan, secret='mlkjdfgmm223!!g')
     # Retrieve data
-    logger = datalogger('dilu')
+    logger = datalogger(name)
     dbdata = logger.select_timespan(timespan)
     logger.close()
     MCRuO2 = extract(dbdata, 'MC RuO2')
@@ -225,9 +225,8 @@ def main():
                     figures = figures,
                     )
 
-@route('/dilu/logview')
-def logview():
-    name = 'dilu'
+@route('/<name>/logview')
+def logview(name):
     logger = datalogger(name)
     dbdata = logger.select_all()
     logger.close()
@@ -238,18 +237,16 @@ def logview():
         s += """{date} : {msg}<BR>\n""".format(date=mystr(t,'date'), msg=str(data) )
     return s
 
-@route('/dilu/log', method='POST')
-def log():
-    name = 'dilu'
+@route('/<name>/log', method='POST')
+def log(name):
     logger = datalogger(name)
     logger.delete_timespan(43200)
     logger.logdata(**request.forms)
     logger.close()
     return 'OK\n'
 
-@route('/dilu/reset')
-def reset():
-    name = 'dilu'
+@route('/<name>/reset')
+def reset(name):
     logger = datalogger(name)
     logger.reset()
     logger.close()
