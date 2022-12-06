@@ -18,7 +18,7 @@ time.tzset()
 class datalogger:
     def __init__(self, name):
         self.conn = MySQLdb.connect(
-            host="jesteve.mysql.pythonanywhere-services.com"
+            host="jesteve.mysql.pythonanywhere-services.com",
             database="jesteve$monitor",
             password="G2dPGXcwR5XmKxW")
         self.name = name
