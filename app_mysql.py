@@ -1,6 +1,6 @@
 from bottle import default_app, route, template, static_file, request, response
 import time, os, io, base64, json
-import mysql.connect
+import MySQLdb
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
@@ -17,7 +17,7 @@ time.tzset()
 ####################
 class datalogger:
     def __init__(self, name):
-        self.conn = mysql.connect(
+        self.conn = MySQLdb.connect(
             database="monitor",
             user="jesteve",
             password="G2dPGXcwR5XmKxW",

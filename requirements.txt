@@ -1,6 +1,7 @@
 bottle
 requests
 psycopg2
+mysql-connector-python
 beautifulsoup4
 numpy
 matplotlib
