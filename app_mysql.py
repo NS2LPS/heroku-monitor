@@ -18,10 +18,9 @@ time.tzset()
 class datalogger:
     def __init__(self, name):
         self.conn = MySQLdb.connect(
-            database="monitor",
-            user="jesteve",
-            password="G2dPGXcwR5XmKxW",
-            host="jesteve.mysql.pythonanywhere-services.com",)
+            host="jesteve.mysql.pythonanywhere-services.com"
+            database="jesteve$monitor",
+            password="G2dPGXcwR5XmKxW")
         self.name = name
         self.query("CREATE TABLE IF NOT EXISTS {0} (time INT, data VARCHAR(512));".format(self.name))
         self.commit()
