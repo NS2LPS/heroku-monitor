@@ -1,3 +1,3 @@
-NS2 monitor on Heroku
+NS2 monitor on PythonAnywhere
 =====================
 

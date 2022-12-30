@@ -7,20 +7,19 @@ matplotlib.use('Agg')
 from matplotlib.pyplot import subplots
 from matplotlib import dates
 from pytz import timezone
+import json
 
 os.environ['TZ'] = 'Europe/Paris'
 time.tzset()
-
+with open('credentials.json','r') as f:
+    credentials = json.load(f)
 
 ####################
 # Data logger database interface
 ####################
 class datalogger:
     def __init__(self, name):
-        self.conn = MySQLdb.connect(
-            host="jesteve.mysql.pythonanywhere-services.com",
-            database="jesteve$monitor",
-            password="G2dPGXcwR5XmKxW")
+        self.conn = MySQLdb.connect(**credentials)
         self.name = name
         self.query("CREATE TABLE IF NOT EXISTS {0} (time INT, data VARCHAR(512));".format(self.name))
         self.commit()
